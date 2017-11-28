@@ -1,54 +1,68 @@
-<!DOCTYPE html>
-<html <?php language_attributes(); ?> >
-<head>
-    <!-- meta Data -->
-    <meta charset="<?php bloginfo( 'charset' ); ?>" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php wp_head(); ?>
-</head>
-<body>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light">
-
-        <div class="container">
-            <a href="#">
-                <span class="bg_logo"><?php bloginfo('title'); ?></span>
-                <!-- You Can Edit the image on main.css file just search ( bg_logo ) -->
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <div class="menu">
-                    <span class="line1"></span>
-                    <span class="line2"></span>
-                    <span class="line3"></span>
-                </div>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a href="#header" data-value="header" class="active-nav">
-                            <i class="manisa-home" hidden></i>
-                            <span class="name-menu">Home</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="nav-toggle">
-        <div class="menu">
-            <span class="line1"></span>
-            <span class="line2"></span>
-            <span class="line3"></span>
-        </div>
-    </div>
-
-    <section id="header" class="header" style="background-image: url(https://brianretterer.dev/wp-content/themes/brianretterer/img/header-background.jpg);">
+<?php get_header(); ?>
+    <section id="header" class="header" style="background-image: url(<?php echo get_theme_mod( 'homepage_header_background_image' ); ?>);">
         <div class="overlay"></div>
         <div class="title">
-<!--            <h1>Hi! I'm <span class="pattaya">Brian</span></h1>-->
+            <h1>Brian Retterer</h1>
+            <p class="type">PHP Developer</p>
         </div>
     </section>
+
+
+    <!-- Start Blog -->
+    <?php
+    if(have_posts()) :
+        ?>
+        <section id="blog" class="blog text-center">
+            <div class="container">
+                <div class="title">
+                    <h2 class="text-uppercase">Blog</h2>
+                </div>
+                <div class="row">
+                    <?php
+                    while ( have_posts() ) :
+                        the_post();
+                        ?>
+                        <div class="col-lg-4 col-md-12">
+                            <div class="post">
+                                <div class="category-post">
+                                    <?php the_category(', '); ?>
+                                </div>
+                                <div class="img-post">
+                                    <a href="<?php the_permalink(); ?>">
+                                        <?php the_post_thumbnail('post-thumbnail', ['class' => 'img-fluid']); ?>
+                                    </a>
+                                </div>
+                                <div class="infos-post">
+                                    <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                                    <span>- <?php the_modified_date(); ?> -</span>
+                                    <hr>
+                                    <?php the_excerpt(); ?>
+                                </div>
+                                <?php if( has_tag() ) : ?>
+                                    <div class="tags-post">
+                                        <?php the_tags('<i class="manisa-tag"></i>', ', '); ?>
+                                    </div>
+                                <?php endif; ?>
+                                <div class="comments-post d-none d-sm-block">
+                                    <a href="<?php echo get_comments_link(); ?>">
+                                        <span>
+                                            <?php echo get_comment_count(get_the_ID())['approved']; ?>
+                                        </span><i class="manisa-bubble"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                    endwhile;
+                    ?>
+                </div>
+                <a href="blog.html" target="_blank" class="btn-manisa">See More</a>
+            </div>
+        </section>
+        <?php
+    endif;
+    ?>
+    <!-- End Blog -->
 
     <section id="about" class="about">
         <div class="container">
@@ -57,7 +71,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12 col-lg text-center">
-                    <div class="about-img"></div>
+                    <div class="about-img" style="background-image: url(https://brianretterer.dev/wp-content/uploads/2017/11/brian-working.png);"></div>
                 </div>
                 <div class="col-md-12 col-lg">
                     <div class="tabs-about">
@@ -83,26 +97,13 @@
                             </li>
                             <!-- End Profile Title Tab -->
 
-                            <!-- ================ -->
 
-                            <!-- Start Skills Title Tab -->
-                            <li class="nav-item">
-                                <a class="nav-link" id="skill-tab" data-toggle="tab" href="#skill" role="tab" aria-controls="skill">
-                                    <i class="manisa-magic-wand"></i>
-                                    <span>Skills</span>
-                                </a>
-                            </li>
-                            <!-- End Skills Title Tab -->
                         </ul>
                         <div class="tab-content" id="myTabContent">
 
                             <!-- Start About Me Tab -->
                             <div class="tab-pane fade show active text-left" id="aboutme" role="tabpanel" aria-labelledby="about-tab">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua labo ris nisi ut aliquip ex ea commodo consequat.</p>
-                                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                <p>Hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
-                                <img src="http://via.placeholder.com/200x50" class="img-fluid signature" alt="signature"/>
-                                <!-- Here image Signature -->
+                                <p>Brian Retterer is a developer advocate at Okta, a Silicon Valley cloud-based identity service. He is focused on serving the PHP community, and always excited to represent and educate developers, especially in the Midwest. From his home base in Ohio, you can often find him advocating for best practices in account security and RESTful API design. With his 13+ years of experience in working with PHP, he has experienced the growing pains and exciting changes that PHP has gone through. You can follow Brian on Twitter at @bretterer</p>
                             </div>
                             <!-- End About Me Tab -->
 
@@ -110,47 +111,30 @@
 
                             <!-- Start Profile Tab -->
                             <div class="tab-pane fade text-left profile" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <h6><span class="title-info">Name :</span><span>Manisa Smith</span></h6> <!-- Edit Your Name  -->
-                                <h6><span class="title-info">Nationality : </span><span>Moroccan</span></h6> <!-- Edit Your Nationality  -->
-                                <h6><span class="title-info">Email : </span><span>manisa@email.com</span></h6> <!-- Edit Your Email  -->
-                                <h6><span class="title-info">Date of birth : </span><span>09-30-1991</span></h6> <!-- Edit Your Date Of Birth  -->
-                                <h6><span class="title-info">Phone : </span><span>+123 456 7890</span></h6> <!-- Edit Your Phone -->
-
-                                <a href="#" class="btn-manisa">Download Resume</a>
+                                <h6><span class="title-info">Name :</span><span>Brian Retterer</span></h6>
+                                <h6><span class="title-info">Email : </span><span>brian@brianretterer.com</span></h6>
+                                <h6><span class="title-info">Github : </span><span>
+                                        <a href="https://github.com/bretterer">
+                                            https://github.com/bretterer
+                                        </a>
+                                    </span>
+                                </h6>
+                                <h6><span class="title-info">Twitter : </span><span>
+                                        <a href="https://twitter.com/bretterer">
+                                            https://twitter.com/bretterer
+                                        </a>
+                                    </span>
+                                </h6>
                             </div>
                             <!-- End Profile Tab -->
 
-                            <!-- ================ -->
 
-                            <!-- Start Skills Tab -->
-                            <div class="tab-pane fade skill" id="skill" role="tabpanel" aria-labelledby="skill-tab">
-                                <div class="skills">
-                                    <p class="progress-text">Html</p> <!-- Here You Can Edit The Name Of Skill -->
-                                    <div class="progress">
-                                        <div class="progress-bar" data-present="85%"></div> <!-- Here You Can Edit The Percentage -->
-                                    </div>
-                                    <p class="progress-text">Photoshop</p> <!-- Here You Can Edit The Name Of Skill -->
-                                    <div class="progress">
-                                        <div class="progress-bar" data-present="70%"></div> <!-- Here You Can Edit The Percentage -->
-                                    </div>
-                                    <p class="progress-text">Javascript</p> <!-- Here You Can Edit The Name Of Skill -->
-                                    <div class="progress">
-                                        <div class="progress-bar" data-present="60%"></div> <!-- Here You Can Edit The Percentage -->
-                                    </div>
-                                    <p class="progress-text">Php</p> <!-- Here You Can Edit The Name Of Skill -->
-                                    <div class="progress">
-                                        <div class="progress-bar" data-present="80%"></div> <!-- Here You Can Edit The Percentage -->
-                                    </div>
-                                </div>
-                                <a href="#" class="btn-manisa">Hire me</a>
-                            </div>
-                            <!-- End Skills Tab -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-<?php wp_footer(); ?>
-</body>
-</html>
+
+
+<?php get_footer(); ?>

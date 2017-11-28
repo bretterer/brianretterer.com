@@ -28,6 +28,10 @@ function brianretterer_scripts() {
     wp_enqueue_style( 'brianretterer-style-color', get_stylesheet_directory_uri() . '/css/color-orange.css' );
 
     wp_enqueue_script( 'brianretterer-scripts', get_stylesheet_directory_uri() . '/js/app.js' );
+
+    if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+        wp_enqueue_script( 'comment-reply' );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'brianretterer_scripts' );
 
@@ -62,3 +66,55 @@ function disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
 
     return $urls;
 }
+
+
+function brianretterer_customize_register( WP_Customize_Manager $wp_customize ) {
+    $wp_customize->add_section('brianretterer_homepage_options', array(
+        'title' => 'Homepage',
+        'description' => '',
+        'priority' => 100,
+    ));
+
+    $wp_customize->add_setting('homepage_header_background_image', [
+        'default' => 'https://brianretterer.dev/wp-content/themes/brianretterer/img/header-background.jpg'
+    ]);
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'homepage_header_background_image',
+        array(
+            'label' => 'Header Background Image',
+            'section' => 'brianretterer_homepage_options',
+            'settings' => 'homepage_header_background_image',
+        ) ) );
+}
+add_action( 'customize_register', 'brianretterer_customize_register' );
+
+function brianretterer_excerpt_length() {
+    return 20;
+}
+add_filter( 'excerpt_length', 'brianretterer_excerpt_length', 999 );
+
+function brianretterer_new_excerpt_more() {
+    return '...';
+}
+add_filter('excerpt_more', 'brianretterer_new_excerpt_more');
+
+function brianretterer_embed_handler_oembed($html, $url, $attr, $post_ID) {
+    if (strpos($url, 'youtube.com')!==false) {
+        $html = '<div class="youtube-wrap">'.$html.'</div>';
+    }
+
+    if (strpos($url, 'twitter.com')!==false) {
+        $html = '<div class="twitter-wrap">'.$html.'</div>';
+    }
+    return $html;
+}
+add_filter('embed_oembed_html', 'brianretterer_embed_handler_oembed', 10, 4);
+
+function brianretterer_navigation_markup_template($template, $class) {
+    return '<section class="paginate text-center %1$s">
+		<h2 class="screen-reader-text">%2$s</h2>
+		%3$s
+	</section>';
+}
+add_filter('navigation_markup_template', 'brianretterer_navigation_markup_template', 10, 2);
+
+include 'inc/walkers/BrianRetterer_Walker_Comment.php';

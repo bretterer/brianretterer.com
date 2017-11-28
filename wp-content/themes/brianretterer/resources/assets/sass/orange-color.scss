@@ -3,7 +3,8 @@ $mainRgba: rgba(222, 108, 4, 0.5);
 
 footer .social-media-footer a,
 .contact .contact-content i,
-.paginate .current,
+.paginate .page-numbers,
+.paginate .page-numbers a,
 .content-post .author-post .author-info h3,
 .price .pricing-table .myprice,
 .serv i,
@@ -11,8 +12,17 @@ footer .social-media-footer a,
 .about .tabs-about .nav-link.active,
 .social-media a:hover,
 .navbar .nav-item a:hover,
-.nav-item a.active-nav {
+.nav-item a.active-nav,
+pre {
     color: $mainColor;
+}
+
+.content-post .comments-post .comments .content .comment-edit-link {
+    color: $mainColor;
+    font-size:12px;
+}
+.paginate .current {
+    color: #ffffff
 }
 
 footer .social-media-footer a,
@@ -22,14 +32,20 @@ footer .social-media-footer a,
     border: 1px solid $mainColor;
 }
 
-.content-post .mycontent .quote-content {
+.content-post .mycontent .quote-content, .content-post .mycontent .wp-block-quote {
     border-left: 5px solid $mainColor;
+}
+
+.content-post .mycontent .wp-block-pullquote {
+    border-top: 4px solid $mainColor;
+    border-bottom: 4px solid $mainColor;
 }
 
 footer .social-media-footer a:hover,
 .contact .contact-map form .btn,
-.content-post .comment-respond .content button,
+.content-post .comment-respond button,
 .content-post .comments-post .comments .content .reply,
+.content-post .comments-post .comments .content .comment-reply-link,
 .blog .post .tags-post,
 .blog .post .comments-post,
 .blog .post .category-post,
@@ -42,6 +58,19 @@ footer .social-media-footer a:hover,
 .progress .progress-bar,
 .btn-manisa {
     background-color: $mainColor;
+}
+
+.content-post .comment-respond {
+    small {
+        a {
+            color: $mainColor;
+        }
+    }
+    .logged-in-as {
+        a {
+            color: $mainColor;
+        }
+    }
 }
 
 .about .tabs-about .nav-link.active:before {

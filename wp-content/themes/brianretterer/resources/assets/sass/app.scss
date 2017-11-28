@@ -66,6 +66,8 @@
 @import '~bootstrap/scss/bootstrap';
 @import 'mixins';
 @import 'placeholders';
+@import 'font-awesome/font-awesome';
+@import 'fonts';
 
 * {
   @include box-sizing;
@@ -85,8 +87,6 @@ body {
   -ms-font-smoothing: antialiased;;
   -o-font-smoothing: antialiased;;
   font-smoothing: antialiased;
-  overflow: hidden;
-  overflow-x: hidden!important;
 }
 
 .pattaya {
@@ -252,7 +252,7 @@ a {
     background-size: 120px;
     background-repeat: no-repeat;
     background-position: center;
-    width: 142px;
+    width: 150px;
     height: 35px;
     display: inline-block;
   }
@@ -276,18 +276,20 @@ a {
   padding: 0;
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 80vh;
   //background-image: url(http://via.placeholder.com/3000x2000);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   .title {
+    background: rgba(0,0,0,.4);
     position: absolute;
     top: 45%;
     left: 50%;
     transform: translate(-50%, -45%);
     text-align: center;
     z-index: 2;
+    padding: 30px;
     h1 {
       color: #fff;
       font-size: 4.3rem;
@@ -459,8 +461,7 @@ a {
     //background-image: url(http://via.placeholder.com/2500x1500); /* Here You can edit your personal image */
     height: 350px;
     width: 100%;
-    background-attachment: fixed;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     @include border-radius (5px);
   }
@@ -1190,7 +1191,7 @@ a {
     }
     .img-post {
       width: 100%;
-      max-height: 222px;
+      max-height: 185px;
       overflow: hidden;
       img {
         @include animate (all, 700ms, ease-in-out);
@@ -1428,6 +1429,8 @@ footer {
   padding-top: 0;
   a {
     color: #333;
+  }
+  .page-numbers {
     padding-left: 10px;
   }
 }
@@ -1447,6 +1450,8 @@ footer {
   margin-bottom: 30px;
   padding-bottom: 0;
   padding-top: 0;
+  background-attachment: fixed;
+  background-position: center;
   .type {
     display: none;
   }
@@ -1478,7 +1483,8 @@ footer {
         margin-top: 0;
       }
     }
-    .quote-content {
+    .quote-content,
+    .wp-block-quote {
       margin-left: 10%;
       padding: 10px 30px;
       margin: 30px 10%;
@@ -1497,9 +1503,20 @@ footer {
     iframe {
       height: 535px;
     }
+    .youtube-wrap {
+      iframe {
+        height: 538px;
+        width: 100%
+      }
+    }
   }
   .author-post {
     padding: 25px 12%;
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     .author-img {
       //background-image: url(http://via.placeholder.com/200x200);
       background-size: cover;
@@ -1526,6 +1543,11 @@ footer {
   .comments-post {
     margin: auto;
     max-width: 700px;
+    .no-comments {
+      text-align: center;
+      color: #acacac;
+      font-size: 14px;
+    }
     .num-comments {
       display: block;
       font-size: 20px;
@@ -1533,6 +1555,9 @@ footer {
       margin-bottom: 35px;
     }
     .comments {
+      .depth-2, .depth-3 {
+        margin-left: 40px;
+      }
       li {
         margin-bottom: 32px;
         &:last-of-type {
@@ -1554,7 +1579,8 @@ footer {
       .content {
         position: relative;
         padding-left: 90px;
-        .reply {
+        .reply,
+        .comment-reply-link {
           position: absolute;
           top: 0;
           right: 0;
@@ -1562,6 +1588,10 @@ footer {
           padding: 3px 15px;
           border-radius: 27px;
           font-size: 14px;
+        }
+        .comment-awaiting-moderation {
+          margin-top: 5px;
+          color: #333;
         }
         .name {
           font-size: 17px;
@@ -1573,7 +1603,7 @@ footer {
           display: block;
         }
         p {
-          margin-top: 12px;
+          margin-top: 5px;
           color: #333;
         }
       }
@@ -1581,24 +1611,28 @@ footer {
   }
   .comment-respond {
     margin-bottom: 40px;
+    text-align: center !important;
     h4 {
-      margin: 50px 0 35px;
+      margin: 50px 0 15px;
     }
     .form-control {
       font-size: 15px;
       border-radius: 2px;
     }
-    .content {
-      button {
-        color: #fff;
-        cursor: pointer;
-      }
-      form {
-        width: 50%;
-        margin: auto;
-        .form-group {
-          margin-bottom: 1.2rem;
-        }
+    .comment-notes {
+      color: #7a7a7a;
+    }
+    .logged-in-as {
+      color: #7a7a7a;
+    }
+    button {
+      color: #fff;
+      cursor: pointer;
+    }
+    form {
+      margin: auto;
+      .form-group {
+        margin-bottom: 1.2rem;
       }
     }
   }
@@ -1775,15 +1809,17 @@ footer {
 .about .tabs-about .nav-link,
 body,
 section,
-.navbar {
+.navbar
+{
   background-color: #131313;
 }
 
 .contact .contact-map .contact-form,
-footer,
 .contact,
+.blog,
 .price,
-.educ {
+.educ,
+footer {
   background-color: #171717;
 }
 
@@ -1810,7 +1846,7 @@ a .bg_logo {
 /* Colors */
 
 .paginate a {
-  color: #fff!important;
+  color: #fff;
 }
 
 .contact .contact-map .contact-form h2,
@@ -1843,6 +1879,7 @@ footer p,
 }
 
 .content-post .comments-post .comments .content p,
+.content-post .comments-post .comments .content .comment-awaiting-moderation,
 .content-post .author-post .author-info h3 span,
 .content-post .mycontent .quote-content span,
 .content-post .mycontent p,
@@ -1884,6 +1921,7 @@ footer p,
 .price .pricing-table,
 .blog .post {
   border: 1px solid #272727;
+  min-height: 475px;
 }
 
 /* Box Shadow Colors */
@@ -1913,3 +1951,14 @@ footer p,
 .nav-item a.active-nav {
   font-weight: 600;
 }
+
+.EmbeddedTweet--mediaForward .EmbeddedTweet-tweet {
+  background-color: $body-bg !important;
+  color: $white !important;
+}
+
+.screen-reader-text {
+  display: none;
+}
+
+@import 'responsive';

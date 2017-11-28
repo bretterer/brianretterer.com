@@ -8,4 +8,5 @@ mix.sass('resources/assets/sass/app.scss', './css/main.css')
     })
     .js('resources/assets/js/app.js', './js/app.js')
     .copy('resources/assets/img', './img')
+    .copy('resources/assets/fonts', './fonts')
     .sourceMaps();
