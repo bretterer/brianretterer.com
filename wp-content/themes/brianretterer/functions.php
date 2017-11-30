@@ -26,11 +26,12 @@ add_action( 'after_setup_theme', 'brianretterer_setup' );
 function brianretterer_scripts() {
     wp_enqueue_style( 'brianretterer-style', get_stylesheet_directory_uri() . '/css/main.css' );
     wp_enqueue_style( 'brianretterer-style-color', get_stylesheet_directory_uri() . '/css/color-orange.css' );
-
+    wp_enqueue_style( 'brianretterer-google-fonts', 'https://fonts.googleapis.com/css?family=Pattaya|Poppins:300,300i,400' );
     wp_enqueue_script( 'brianretterer-scripts', get_stylesheet_directory_uri() . '/js/app.js' );
 
     if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
         wp_enqueue_script( 'comment-reply' );
+        wp_enqueue_script( 'brianretterer-recaptcha', 'https://www.google.com/recaptcha/api.js', ['brianretterer-scripts']);
     }
 }
 add_action( 'wp_enqueue_scripts', 'brianretterer_scripts' );

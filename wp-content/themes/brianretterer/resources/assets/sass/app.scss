@@ -1957,8 +1957,10 @@ footer p,
   color: $white !important;
 }
 
-.screen-reader-text {
+.screen-reader-text,
+.grecaptcha-badge {
   display: none;
 }
+
 
 @import 'responsive';

@@ -24,7 +24,6 @@ if ( post_password_required() ) {
 ?>
 
 <div class="comments-post">
-    <?php if ( have_comments() ) : ?>
     <span class="text-center num-comments">
         <?php
         $count = get_comment_count(get_the_ID())['approved'];
@@ -32,6 +31,7 @@ if ( post_password_required() ) {
         ?>
     </span>
 
+    <?php if ( have_comments() ) : ?>
     <ul class="comments list-unstyled">
         <?php
         wp_list_comments( [
@@ -52,41 +52,28 @@ if ( post_password_required() ) {
 
         <?php
         endif;
+
+    endif;
         comment_form([
             'title_reply_before' => '<h4>',
             'title_reply_after' => '</h4>',
             'title_reply' => __( 'Leave a Comment' ),
             'title_reply_to' => __( 'Reply To %s' ),
             'comment_field' => '<div class="form-group"><textarea id="comment" name="comment" cols="30" rows="4" class="form-control" placeholder="Comment *" required></textarea></div>',
-            'submit_button' => '<button class="btn" type="submit">Post comment</button>',
+            'submit_button' => '<button class="btn g-recaptcha" data-badge="inline" data-sitekey="6LehAjsUAAAAAEtbES5DkfLTSmN7EXNbd5NgN30d" data-callback="commentFormOnSubmit">Post comment</button>',
             'fields' => [
                 'author' => '<div class="form-group"><input type="text" class="form-control" placeholder="Name *" name="author" required></div>',
                 'email' => '<div class="form-group"><input type="email" class="form-control" placeholder="E-mail *" name="email" required></div>',
                 'url' => '<div class="form-group"><input type="text" class="form-control" placeholder="URL" name="url"></div>'
             ],
-            'submit_field'         => '%1$s %2$s',
+            'submit_field'         => '%1$s %2$s'
 
         ]);
-    endif;
     ?>
 </div>
 
-<!--<div class="comment-respond text-center">-->
-<!--    <h4>Leave a Comment</h4>-->
-<!--    <div class="content">-->
-<!--        <form action="#" id="add-comment" class="validate-form">-->
-<!--            <div class="form-group">-->
-<!--                <input type="text" class="form-control" placeholder="Name" required>-->
-<!--            </div>-->
-<!--            <div class="form-group">-->
-<!--                <input type="email" class="form-control" placeholder="E-mail" required>-->
-<!--            </div>-->
-<!--            <div class="form-group">-->
-<!--                <textarea id="comment" cols="30" rows="4" class="form-control" placeholder="Comment" required></textarea>-->
-<!--            </div>-->
-<!--            <button class="btn">Post comment</button>-->
-<!--        </form>-->
-<!--    </div>-->
-<!--</div>-->
-
-
+<script>
+    function commentFormOnSubmit(token) {
+        document.getElementById("commentform").submit();
+    }
+</script>

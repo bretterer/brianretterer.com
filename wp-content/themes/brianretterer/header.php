@@ -7,15 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php wp_head(); ?>
 
-    <!-- google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Pattaya|Poppins:300,300i,400" rel="stylesheet">
-
 </head>
 <body <?php body_class(); ?>>
 <nav class="navbar fixed-top navbar-expand-lg navbar-light">
 
     <div class="container">
-        <a href="#">
+        <a href="<?php echo home_url(); ?>">
             <span class="bg_logo"><?php bloginfo('title'); ?></span>
             <!-- You Can Edit the image on main.css file just search ( bg_logo ) -->
         </a>
