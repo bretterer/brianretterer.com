@@ -1398,6 +1398,7 @@ footer {
   margin-bottom: 30px;
   padding-bottom: 0;
   padding-top: 0;
+  background-position: center;
   .typed-cursor,
   .type {
     display: none;
@@ -1425,8 +1426,8 @@ footer {
 }
 
 .paginate {
-  padding-bottom: 60px;
-  padding-top: 0;
+  padding-bottom: 30px;
+  padding-top: 30px;
   a {
     color: #333;
   }
@@ -1809,7 +1810,8 @@ footer {
 .about .tabs-about .nav-link,
 body,
 section,
-.navbar
+.navbar,
+footer
 {
   background-color: #131313;
 }
@@ -1819,7 +1821,7 @@ section,
 .blog,
 .price,
 .educ,
-footer {
+.pagination {
   background-color: #171717;
 }
 
@@ -1962,5 +1964,7 @@ footer p,
   display: none;
 }
 
-
+.pagination {
+  display: inherit;
+}
 @import 'responsive';
