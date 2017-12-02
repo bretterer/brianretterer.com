@@ -1795,6 +1795,14 @@ footer {
 
 
 /* Background Colors */
+.contact .contact-map .contact-form,
+.contact,
+.blog,
+.price,
+.educ,
+.pagination {
+  background-color: #171717;
+}
 
 .price .pricing-table,
 .option-box .color-option,
@@ -1809,20 +1817,11 @@ footer {
 .about .tabs-about .nav-link.active,
 .about .tabs-about .nav-link,
 body,
-section,
 .navbar,
-footer
+footer,
+.featured-posts
 {
   background-color: #131313;
-}
-
-.contact .contact-map .contact-form,
-.contact,
-.blog,
-.price,
-.educ,
-.pagination {
-  background-color: #171717;
 }
 
 .form-control:focus,
