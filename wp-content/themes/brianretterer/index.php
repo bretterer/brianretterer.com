@@ -1,44 +1,15 @@
-<?php get_header(); ?>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 
-    <section class="header-blog active-nav" style="background-image: url(<?php echo get_theme_mod( 'homepage_header_background_image' ); ?>);">
-        <div class="overlay">
-            <h1><?php bloginfo( 'name' ); ?></h1>
-        </div>
-    </section>
+    <link rel="stylesheet" href="/wp-content/themes/brianretterer/public/css/app.css">
+</head>
+<body class="bg-white">
 
-<?php
-if(have_posts()) :
-    ?>
-    <section id="blog" class="blog blog-page text-center active-nav">
-        <div class="container">
-            <div class="title">
-                <h2 class="text-uppercase">Blog</h2>
-            </div>
-            <div class="row">
-                <?php
-                while ( have_posts() ) : the_post();
-                    ?>
-                    <div class="col-lg-6 col-md-12">
-                        <?php
-                        get_template_part('template-parts/post/card');
-
-                        ?>
-                    </div>
-                    <?php
-                endwhile;
-
-                ?>
-            </div>
-
-        </div>
-    </section>
-    <?php
-    the_posts_pagination( [
-        'prev_text' => __( 'Previous', 'brianretterer' ),
-        'next_text' => __( 'Next', 'brianretterer' ),
-    ] );
-
-endif;
-?>
-
-<?php get_footer(); ?>
+</body>
+</html>

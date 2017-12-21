@@ -108,12 +108,25 @@
 
 
 <!-- Start Header -->
-<section id="header" class="header">
+<section id="header" class="header" style="background-image: url(<?php echo get_theme_mod( 'manisa_header_background_image' ); ?>);">
     <div class="overlay"></div>
     <div class="title">
-        <h1>Hi! i am <span class="pattaya">Manisa</span></h1>
-        <p class="type"></p>  <!-- You Can Edit the title on the custom.js File -->
-        <a href="#portfolio" class="btn-manisa">My Portfolio</a>
+        <h1><?php echo get_theme_mod('manisa_header_main_text'); ?></h1>
+        <div id="typed-strings" class="hidden">
+            <?php
+            $lines = explode(",", get_theme_mod('manisa_header_sub_text'));
+            foreach($lines as $line) {
+                echo "<p>{$line}</p>";
+            }
+
+            ?>
+        </div>
+        <p class="type"></p>
+        <?php if("" != get_theme_mod('manisa_header_button_text')) : ?>
+        <a href="<?php echo get_theme_mod('manisa_header_button_link'); ?>" class="btn-manisa">
+            <?php echo get_theme_mod('manisa_header_button_text'); ?>
+        </a>
+        <?php endif; ?>
     </div>
     <div class="down">
         <a href="#about"><i class="manisa-mouse"></i></a>
@@ -123,6 +136,7 @@
 <!-- End Header -->
 
 
+<?php if(true == get_theme_mod( 'manisa_about_section_enable' )) : ?>
 <!-- Start About -->
 <section id="about" class="about">
     <div class="container">
@@ -131,13 +145,17 @@
         </div>
         <div class="row">
             <div class="col-md-12 col-lg text-center">
-                <div class="about-img"></div>
-                <!-- go to main.scss file to edit personal image -->
+                <?php if(get_theme_mod('manisa_about_section_image_as_background')) : ?>
+                <div class="about-img" style="background-image: url(<?php echo get_theme_mod( 'manisa_about_section_image' ); ?>);"></div>
+                <?php else : ?>
+                <div class="about-img" style="background-attachment: inherit; background-image: url(<?php echo
+                get_theme_mod( 'manisa_about_section_image' ); ?>);"></div>
+                <?php endif; ?>
             </div>
             <div class="col-md-12 col-lg">
                 <div class="tabs-about">
                     <ul class="nav nav-tabs text-center" id="myTab" role="tablist">
-
+                        <?php if("" != get_theme_mod( 'manisa_about_text' )) : ?>
                         <!-- Start About Me Title Tab -->
                         <li class="nav-item">
                             <a class="nav-link active" id="about-tab" data-toggle="tab" href="#aboutme" role="tab" aria-controls="about" aria-expanded="true">
@@ -146,9 +164,11 @@
                             </a>
                         </li>
                         <!-- End About Me Title Tab -->
+                        <?php endif; ?>
 
                         <!-- ================ -->
 
+                        <?php if( "" != get_theme_mod( 'manisa_about_profile' ) ) : ?>
                         <!-- Start Profile Title Tab -->
                         <li class="nav-item">
                             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile">
@@ -157,9 +177,10 @@
                             </a>
                         </li>
                         <!-- End Profile Title Tab -->
-
+                        <?php endif; ?>
                         <!-- ================ -->
 
+                        <?php if( "" != get_theme_mod( 'manisa_about_skills' ) ) : ?>
                         <!-- Start Skills Title Tab -->
                         <li class="nav-item">
                             <a class="nav-link" id="skill-tab" data-toggle="tab" href="#skill" role="tab" aria-controls="skill">
@@ -168,58 +189,70 @@
                             </a>
                         </li>
                         <!-- End Skills Title Tab -->
+                        <?php endif; ?>
                     </ul>
                     <div class="tab-content" id="myTabContent">
 
+                        <?php if("" != get_theme_mod( 'manisa_about_text' )) : ?>
                         <!-- Start About Me Tab -->
                         <div class="tab-pane fade show active text-left" id="aboutme" role="tabpanel" aria-labelledby="about-tab">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua labo ris nisi ut aliquip ex ea commodo consequat.</p>
-                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                            <p>Hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
-                            <img src="https://via.placeholder.com/200x50" class="img-fluid signature" alt="signature"/>
+                            <?php echo wpautop(get_theme_mod('manisa_about_text')); ?>
+                            <?php if("" != get_theme_mod('manisa_about_section_signature')): ?>
+                            <img src="<?php echo get_theme_mod('manisa_about_section_signature'); ?>" class="img-fluid
+                            signature" alt="signature"/>
+                            <?php endif; ?>
                             <!-- Here image Signature -->
                         </div>
                         <!-- End About Me Tab -->
-
+                        <?php endif; ?>
                         <!-- ================ -->
 
+                        <?php if("" != get_theme_mod( 'manisa_about_profile' )) : ?>
                         <!-- Start Profile Tab -->
                         <div class="tab-pane fade text-left profile" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                            <h6><span class="title-info">Name :</span><span>Manisa Smith</span></h6> <!-- Edit Your Name  -->
-                            <h6><span class="title-info">Nationality : </span><span>Moroccan</span></h6> <!-- Edit Your Nationality  -->
-                            <h6><span class="title-info">Email : </span><span>manisa@email.com</span></h6> <!-- Edit Your Email  -->
-                            <h6><span class="title-info">Date of birth : </span><span>09-30-1991</span></h6> <!-- Edit Your Date Of Birth  -->
-                            <h6><span class="title-info">Phone : </span><span>+123 456 7890</span></h6> <!-- Edit Your Phone -->
-
-                            <a href="#" class="btn-manisa">Download Resume</a>
+                            <?php
+                            $profileItems = explode(',', get_theme_mod( 'manisa_about_profile' ));
+                            foreach($profileItems as $item):
+                            list($name, $value) = explode(":", $item);
+                            ?>
+                                <h6>
+                                    <span class="title-info"><?php echo $name; ?> :</span>
+                                    <span><?php echo $value; ?></span>
+                                </h6>
+                            <?php endforeach; ?>
+                            <?php if("" != get_theme_mod( 'manisa_about_profile_button_text' )) : ?>
+                                <a href="<?php echo get_theme_mod( 'manisa_about_profile_button_link' ); ?>" class="btn-manisa">
+                                    <?php echo get_theme_mod( 'manisa_about_profile_button_text' ); ?>
+                                </a>
+                            <?php endif; ?>
                         </div>
                         <!-- End Profile Tab -->
-
+                        <?php endif; ?>
                         <!-- ================ -->
 
+                        <?php if("" != get_theme_mod( 'manisa_about_skills' )) : ?>
                         <!-- Start Skills Tab -->
                         <div class="tab-pane fade skill" id="skill" role="tabpanel" aria-labelledby="skill-tab">
                             <div class="skills">
-                                <p class="progress-text">Html</p> <!-- Here You Can Edit The Name Of Skill -->
-                                <div class="progress">
-                                    <div class="progress-bar" data-present="85%"></div> <!-- Here You Can Edit The Percentage -->
-                                </div>
-                                <p class="progress-text">Photoshop</p> <!-- Here You Can Edit The Name Of Skill -->
-                                <div class="progress">
-                                    <div class="progress-bar" data-present="70%"></div> <!-- Here You Can Edit The Percentage -->
-                                </div>
-                                <p class="progress-text">Javascript</p> <!-- Here You Can Edit The Name Of Skill -->
-                                <div class="progress">
-                                    <div class="progress-bar" data-present="60%"></div> <!-- Here You Can Edit The Percentage -->
-                                </div>
-                                <p class="progress-text">Php</p> <!-- Here You Can Edit The Name Of Skill -->
-                                <div class="progress">
-                                    <div class="progress-bar" data-present="80%"></div> <!-- Here You Can Edit The Percentage -->
-                                </div>
+                                <?php
+                                $skillItems = explode(',', get_theme_mod( 'manisa_about_skills' ));
+                                foreach($skillItems as $skill):
+                                    list($name, $value) = explode(":", $skill);
+                                    ?>
+                                    <p class="progress-text"><?php echo $name; ?></p>
+                                    <div class="progress">
+                                        <div class="progress-bar" data-present="<?php echo $value; ?>%"></div> <!-- Here You Can Edit The Percentage -->
+                                    </div>
+                                <?php endforeach; ?>
                             </div>
-                            <a href="#" class="btn-manisa">Hire me</a>
+                            <?php if("" != get_theme_mod( 'manisa_about_skills_button_text' )) : ?>
+                            <a href="<?php echo get_theme_mod( 'manisa_about_skills_button_link' ); ?>" class="btn-manisa">
+                                <?php echo get_theme_mod( 'manisa_about_skills_button_text' ); ?>
+                            </a>
+                            <?php endif; ?>
                         </div>
                         <!-- End Skills Tab -->
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -228,6 +261,7 @@
 </section>
 
 <!-- End About -->
+<?php endif; ?>
 
 
 <!-- Start JOBS & EDUCATION -->
@@ -919,19 +953,19 @@
                 <div class="col-lg col-sm-4">
                     <div class="email">
                         <i class="manisa-envelope"></i>
-                        <span>manisa@email.com</span>
+                        <span>brian@brianretterer.com</span>
                     </div>
                 </div>
                 <div class="col-lg col-sm-4">
                     <div class="phone">
                         <i class="manisa-call-end"></i>
-                        <span>+123 456 7899</span>
+                        <span>(513) 360-8855</span>
                     </div>
                 </div>
                 <div class="col-lg col-sm-4">
                     <div class="address">
                         <i class="manisa-pointer"></i>
-                        <span>123 Street Name, City , 32008</span>
+                        <span>Dayton, Ohio</span>
                     </div>
                 </div>
             </div>
@@ -941,7 +975,8 @@
         <div class="contact-map maps" id="overlay">
             <div class="google-wrapper">
                 <div id="google-map"> <!-- Your Can Add Your Location Just Go To Google Map And Emped Map -->
-                    <iframe id="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d162778.81964475298!2d-73.93891815355539!3d40.703660465248056!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY!5e0!3m2!1sen!2s!4v1491335061565"></iframe>
+<!--                    <iframe id="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d162778.81964475298!2d-73.93891815355539!3d40.703660465248056!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY!5e0!3m2!1sen!2s!4v1491335061565"></iframe>-->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d196322.41791410325!2d-84.10328882968415!3d39.75003249992017!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1513732540397"></iframe>
                 </div>
                 <div class="container">
                     <div class="contact-form">

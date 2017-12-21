@@ -245,7 +245,7 @@ section {
 
 a {
     .bg_logo {
-        background-image: url(https://via.placeholder.com/231x58); /* Here The Light Logo */
+        background-image: url(../images/dark-logo.png); /* Here The Light Logo */
         background-size: 120px;
         background-repeat: no-repeat;
         background-position: center;
@@ -254,11 +254,11 @@ a {
         display: inline-block;
     }
     .bg_logo_dark {
-        background-image: url(https://via.placeholder.com/231x58); /* Here The Dark Logo */
+        background-image: url(../images/light-logo.png); /* Here The Dark Logo */
         background-repeat: no-repeat;
     }
     .bg_logo_light {
-        background-image: url(https://via.placeholder.com/231x58); /* Here The Light Logo */
+        background-image: url(../images/dark-logo.png); /* Here The Light Logo */
         background-repeat: no-repeat;
     }
 }
@@ -1869,3 +1869,7 @@ footer {
 }
 
 /* End Style Demo */
+
+.hidden {
+    display:none;
+}

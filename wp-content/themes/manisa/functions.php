@@ -105,112 +105,6 @@ function manisa_navigation_markup_template($template, $class) {
 }
 add_filter('navigation_markup_template', 'manisa_navigation_markup_template', 10, 2);
 
-
-
-
-function manisa_customize_register( WP_Customize_Manager $wp_customize ) {
-    $wp_customize->add_panel(
-        'manisa_theme_options',
-        [
-            'title' => 'Theme Options',
-            'description' => 'Options for the Manisa Theme',
-            'priority' => 100
-        ]
-    );
-
-    $wp_customize->add_section(
-        'manisa_color_option_section',
-        [
-            'panel' => 'manisa_theme_options',
-            'title' => __( 'Color Options' ),
-            'priority' => 10,
-            'description' => __( 'Choose light or dark theme, and which accent color to use.' )
-        ]
-    );
-
-    $wp_customize->add_setting(
-        'manisa_light_dark_theme',
-        [
-            'default' => get_option( 'manisa_light_dark_theme' ) ?: 'light',
-            'type' => 'option'
-        ]
-    );
-
-    $wp_customize->add_control(
-        'manisa_light_dark_theme',
-        [
-            'label' => __( 'Light or Dark Theme' ),
-            'section' => 'manisa_color_option_section',
-            'type' => 'radio',
-            'choices' => [
-                'light' => __( 'Light Theme' ),
-                'dark'  => __( 'Dark Theme' )
-            ],
-        ]
-    );
-
-    $wp_customize->add_setting(
-        'manisa_theme_accent_color',
-        [
-            'default' => get_option( 'manisa_theme_accent_color' ) ?: 'default',
-            'type' => 'option'
-        ]
-    );
-
-    $wp_customize->add_control(
-        'manisa_theme_accent_color',
-        [
-            'label' => __( 'Theme Accent Color' ),
-            'section' => 'manisa_color_option_section',
-            'type' => 'select',
-            'choices' => [
-                'default' => __( 'Default Color' ),
-                'azure'  => __( 'Azure' ),
-                'blue'  => __( 'Blue' ),
-                'brown'  => __( 'Brown' ),
-                'gold'  => __( 'Gold' ),
-                'green'  => __( 'Green' ),
-                'orange'  => __( 'Orange' ),
-                'pink'  => __( 'Pink' )
-            ],
-        ]
-    );
-
-    $wp_customize->add_section(
-        'manisa_navigation_settings',
-        [
-            'panel' => 'manisa_theme_options',
-            'title' => __( 'Navigation Menu Location' ),
-            'priority' => 10,
-            'description' => __( 'Choose the style of navigation menu.' )
-        ]
-    );
-
-    $wp_customize->add_setting(
-        'manisa_navigation_location',
-        [
-            'default' => get_option( 'manisa_navigation_location' ) ?: 'horizontal-navigation',
-            'type' => 'option'
-        ]
-    );
-
-    $wp_customize->add_control(
-        'manisa_navigation_location',
-        [
-            'label' => __( 'Navigation Location Style' ),
-            'section' => 'manisa_navigation_settings',
-            'type' => 'radio',
-            'choices' => [
-                'horizontal-navigation' => __( 'Horizontal' ),
-                'panel-navigation'  => __( 'Panel' ),
-                'vertical-navigation'  => __( 'Vertical' )
-            ],
-        ]
-    );
-}
-add_action( 'customize_register', 'manisa_customize_register' );
-
-
 function manisa_body_classes($classes) {
     $classes[] = get_option( 'manisa_light_dark_theme' ) ?: 'light';
     $classes[] = get_option( 'manisa_theme_accent_color' ) ?: 'default';
@@ -226,3 +120,5 @@ function manisa_menu_classes($classes, $item, $args) {
     return $classes;
 }
 add_filter('nav_menu_css_class','manisa_menu_classes',1,3);
+
+require 'inc/customizer.php';
